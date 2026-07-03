@@ -1,0 +1,17 @@
+# Blog topic queue for the auto-blogger.
+# One topic per line. The script takes the top line each run, writes the post,
+# and moves the line to topics.done.txt. Add as many as you like.
+# Lines starting with # are ignored.
+#
+# These map to the content clusters from the SEO audit (SEBI, DPDPA, RBI, VAPT).
+
+SEBI CSCRF compliance: who it applies to, key deadlines, and a practical checklist for brokers and AMCs
+What is VAPT? A buyer's guide to scoping, methodology, and what a good report contains
+DPDPA explained: what Indian companies must do to become data-protection ready
+RBI cyber security framework for banks and NBFCs: a plain-English overview of the requirements
+ISO 27001:2022 implementation roadmap for a mid-sized Indian company
+Web application penetration testing: the OWASP Top 10 flaws we find most often
+How to build an incident response plan before you are breached
+Phishing simulation: how to measure and improve employee security awareness
+Cloud security assessment for AWS and Azure: common misconfigurations that lead to breaches
+Choosing between SOC-as-a-Service and building an in-house SOC in India
