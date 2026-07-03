@@ -1,0 +1,21 @@
+# Enable Application Password / REST API authentication on LiteSpeed (Hostinger).
+#
+# WHY: By default this server strips the HTTP "Authorization" header before it
+# reaches PHP, so WordPress never sees Application Password credentials and every
+# authenticated REST request fails with {"code":"rest_not_logged_in"}.
+#
+# HOW: Add these lines to your site's .htaccess, INSIDE the "# BEGIN WordPress"
+# block, right after the "RewriteEngine On" line. Then save.
+#
+#   RewriteEngine On
+#   RewriteCond %{HTTP:Authorization} ^(.*)
+#   RewriteRule .* - [E=HTTP_AUTHORIZATION:%1]
+#   # --- end auth header pass-through ---
+#
+# If the RewriteRule form doesn't work on your setup, use this instead
+# (either one is enough — don't add both):
+#
+#   SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+#
+# After saving, clear LiteSpeed cache (LiteSpeed Cache -> Toolbox -> Purge All).
+# Then Claude can authenticate and apply the SEO fixes via the REST API.
