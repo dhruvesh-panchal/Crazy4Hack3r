@@ -1,0 +1,18 @@
+# Selkey SEO fix — 301 redirects for corrected slugs.
+#
+# IMPORTANT ORDER OF OPERATIONS:
+#   1. First rename each slug in WP admin (edit the service → Permalink → change slug).
+#   2. THEN paste this block into .htaccess, ABOVE the "# BEGIN WordPress" block.
+#      (LiteSpeed reads .htaccess the same way Apache does.)
+#   3. Test each old URL returns 301 → new URL.
+#
+# Note: Yoast Premium or the free "Redirection" plugin can manage these
+# instead of .htaccess if you prefer a UI.
+
+# Typo fixes in service slugs
+Redirect 301 /service/security-assesment-services-and-ot/ https://selkeycybersecurity.com/service/security-assessment-services-and-ot/
+Redirect 301 /service/gdpr-implementation-readness/ https://selkeycybersecurity.com/service/gdpr-implementation-readiness/
+Redirect 301 /service/soc-as-a-services/ https://selkeycybersecurity.com/service/soc-as-a-service/
+
+# Duplicate theme demo page → its original (delete the -copy page too)
+Redirect 301 /project/explore-our-it-solutions-portfolio-for-public-sector-organizations-copy/ https://selkeycybersecurity.com/project/explore-our-it-solutions-portfolio-for-public-sector-organizations/
