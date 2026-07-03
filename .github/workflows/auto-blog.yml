@@ -1,0 +1,41 @@
+name: Auto blog post
+
+# Generates one draft blog post on a schedule using Claude + the WordPress REST API.
+# It publishes as a DRAFT by default — review in wp-admin before it goes live.
+
+on:
+  schedule:
+    # 09:00 UTC every Monday and Thursday. Adjust as you like (cron is UTC).
+    - cron: "0 9 * * 1,4"
+  workflow_dispatch: {}   # lets you run it manually from the Actions tab
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r automation/requirements.txt
+
+      - name: Generate and publish a draft
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          WP_URL: ${{ secrets.WP_URL }}
+          WP_USER: ${{ secrets.WP_USER }}
+          WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
+          POST_STATUS: draft
+          POST_CATEGORY: Insights
+        run: python automation/generate_post.py
+
+      - name: Commit the updated topic queue
+        run: |
+          git config user.name "auto-blog"
+          git config user.email "actions@github.com"
+          git add automation/topics.txt automation/topics.done.txt || true
+          git commit -m "auto-blog: consume topic" || echo "nothing to commit"
+          git push || echo "nothing to push"
