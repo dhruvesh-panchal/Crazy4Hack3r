@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Selkey Cyber Security — Enterprise SEO & Content Audit</title>
+<style>
+  :root{
+    --ink:#0f1b2d; --muted:#5a6b82; --line:#e2e8f0; --bg:#ffffff;
+    --brand:#0b5cff; --brand2:#0a2540; --accent:#00b3a4;
+    --crit:#d92d20; --high:#e8791a; --med:#caa500; --ok:#1a9d5a;
+    --chipbg:#f1f5fb;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);font-size:10.5pt;line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  h1,h2,h3,h4{line-height:1.2;margin:0 0 .4em}
+  p{margin:0 0 .7em}
+  a{color:var(--brand);text-decoration:none}
+  small{color:var(--muted)}
+  .page{padding:20mm 18mm;page-break-after:always;position:relative}
+  .page:last-child{page-break-after:auto}
+
+  /* Cover */
+  .cover{background:linear-gradient(150deg,#0a2540 0%,#0b3e73 55%,#0b5cff 120%);color:#fff;min-height:257mm;padding:26mm 20mm;display:flex;flex-direction:column}
+  .cover .kicker{letter-spacing:.28em;text-transform:uppercase;font-size:9pt;color:#8fc2ff;font-weight:700}
+  .cover h1{font-size:33pt;margin-top:14mm;font-weight:800;letter-spacing:-.5px}
+  .cover h1 span{color:#7fdfff}
+  .cover .sub{font-size:13pt;color:#cfe0f5;max-width:150mm;margin-top:6mm}
+  .cover .meta{margin-top:auto;display:grid;grid-template-columns:1fr 1fr;gap:5mm 10mm;border-top:1px solid rgba(255,255,255,.2);padding-top:8mm}
+  .cover .meta div span{display:block;font-size:8pt;letter-spacing:.15em;text-transform:uppercase;color:#8fc2ff}
+  .cover .meta div b{font-size:11pt;font-weight:600}
+  .cover .badge{align-self:flex-end;border:1.5px solid rgba(255,255,255,.35);border-radius:40px;padding:5px 16px;font-size:8.5pt;letter-spacing:.12em;text-transform:uppercase;color:#cfe0f5;margin-bottom:10mm}
+
+  .lead{font-size:12pt;color:var(--brand2);font-weight:600;border-left:3px solid var(--brand);padding-left:12px;margin:0 0 6mm}
+  h2.sec{font-size:17pt;font-weight:800;color:var(--brand2);letter-spacing:-.3px;margin-top:0;padding-bottom:3mm;border-bottom:2px solid var(--brand)}
+  h2.sec .n{color:var(--brand);font-size:13pt;margin-right:8px}
+  h3.sub2{font-size:12pt;color:var(--brand2);margin-top:7mm;font-weight:700}
+  .eyebrow{letter-spacing:.2em;text-transform:uppercase;font-size:8pt;color:var(--muted);font-weight:700;margin-bottom:2mm}
+
+  table{width:100%;border-collapse:collapse;font-size:9pt;margin:3mm 0 5mm}
+  th,td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:#f6f9fe;color:var(--brand2);font-weight:700;font-size:8pt;letter-spacing:.04em;text-transform:uppercase}
+  tr{page-break-inside:avoid}
+  td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+  .pill{display:inline-block;padding:1px 8px;border-radius:20px;font-size:7.5pt;font-weight:700;letter-spacing:.03em;color:#fff;white-space:nowrap}
+  .p-crit{background:var(--crit)} .p-high{background:var(--high)} .p-med{background:var(--med)} .p-ok{background:var(--ok)} .p-info{background:#5566aa}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:5mm}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm}
+  .card{border:1px solid var(--line);border-radius:8px;padding:5mm;background:#fff}
+  .card.tint{background:#f8fbff}
+
+  .kpi{border:1px solid var(--line);border-radius:8px;padding:4mm;text-align:center}
+  .kpi b{display:block;font-size:22pt;font-weight:800;line-height:1;color:var(--brand2)}
+  .kpi small{display:block;margin-top:2mm;font-size:8pt;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+  .kpi.crit b{color:var(--crit)} .kpi.high b{color:var(--high)} .kpi.ok b{color:var(--ok)}
+
+  .score-row{display:flex;align-items:center;gap:8px;margin:2mm 0}
+  .score-row .lbl{width:52mm;font-size:9.5pt;font-weight:600}
+  .bar{flex:1;height:9px;background:#eef2f7;border-radius:6px;overflow:hidden}
+  .bar > i{display:block;height:100%;border-radius:6px}
+  .score-row .val{width:16mm;text-align:right;font-weight:700;font-size:9pt;font-variant-numeric:tabular-nums}
+
+  .finding{border:1px solid var(--line);border-left-width:4px;border-radius:6px;padding:4mm 5mm;margin:0 0 4mm;page-break-inside:avoid}
+  .finding.crit{border-left-color:var(--crit)}
+  .finding.high{border-left-color:var(--high)}
+  .finding.med{border-left-color:var(--med)}
+  .finding h4{font-size:10.5pt;margin:0 0 1mm;color:var(--brand2)}
+  .finding .why{color:var(--muted);font-size:9pt}
+  .finding .fix{font-size:9pt;margin-top:2mm}
+  .finding .fix b{color:var(--brand2)}
+  .tag{display:inline-block;font-size:7.5pt;background:var(--chipbg);color:var(--brand2);border-radius:4px;padding:1px 6px;margin-left:4px;font-weight:600}
+
+  ul.tight{margin:.3em 0 .8em;padding-left:5mm}
+  ul.tight li{margin-bottom:1.2mm}
+  .foot{position:absolute;bottom:9mm;left:18mm;right:18mm;display:flex;justify-content:space-between;font-size:7.5pt;color:#9aa7b8;border-top:1px solid var(--line);padding-top:2mm}
+  .callout{background:#fff8ec;border:1px solid #f4d9a8;border-radius:8px;padding:4mm 5mm;font-size:9pt;margin:3mm 0}
+  .callout.good{background:#eefaf2;border-color:#bfe6cd}
+  .callout b{color:var(--brand2)}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:8.5pt;background:#f3f6fb;padding:1px 5px;border-radius:4px}
+  .two-col{column-count:2;column-gap:8mm}
+</style>
+</head>
+<body>
+
+<!-- ===================== COVER ===================== -->
+<section class="cover">
+  <div class="badge">Confidential · Prepared for the site owner</div>
+  <div class="kicker">Enterprise SEO &amp; Content Audit</div>
+  <h1>Selkey Cyber<br><span>Security</span> Pvt Ltd</h1>
+  <div class="sub">A full-site technical SEO, content-quality, media and design assessment of <b>selkeycybersecurity.com</b>, benchmarked against enterprise-grade B2B cybersecurity websites — with a prioritised remediation roadmap.</div>
+  <div class="meta">
+    <div><span>Domain</span><b>selkeycybersecurity.com</b></div>
+    <div><span>Audit date</span><b>3 July 2026</b></div>
+    <div><span>Scope</span><b>87 URLs · 43 service pages · all media</b></div>
+    <div><span>Platform</span><b>WordPress · Elementor · Yoast · LiteSpeed</b></div>
+    <div><span>Method</span><b>Full crawl · rendered inspection · media probe</b></div>
+    <div><span>Overall grade</span><b>C+ &nbsp;(62 / 100)</b></div>
+  </div>
+</section>
+
+<!-- ===================== EXEC SUMMARY ===================== -->
+<section class="page">
+  <div class="eyebrow">01 · Executive summary</div>
+  <h2 class="sec"><span class="n">§1</span>The 60-second read</h2>
+  <p class="lead">The commercial engine — 43 service pages — is genuinely strong and recently optimised. What holds the site back from looking enterprise-grade is everything <i>around</i> it: leftover theme demo content, a heavy un-optimised media layer, thin hub/parent pages, and no informational content to win search demand.</p>
+
+  <div class="grid3" style="margin-bottom:5mm">
+    <div class="kpi ok"><b>43</b><small>Service pages, mostly unique &amp; well-written</small></div>
+    <div class="kpi crit"><b>~45</b><small>Junk / demo URLs indexable &amp; in sitemap</small></div>
+    <div class="kpi high"><b>35&nbsp;MB</b><small>Image payload · 604 legacy-format files</small></div>
+  </div>
+
+  <h3 class="sub2">Category scorecard</h3>
+  <div class="card">
+    <div class="score-row"><div class="lbl">Technical SEO foundation</div><div class="bar"><i style="width:78%;background:var(--ok)"></i></div><div class="val">78</div></div>
+    <div class="score-row"><div class="lbl">On-page &amp; metadata</div><div class="bar"><i style="width:70%;background:var(--ok)"></i></div><div class="val">70</div></div>
+    <div class="score-row"><div class="lbl">Content depth &amp; quality</div><div class="bar"><i style="width:64%;background:var(--med)"></i></div><div class="val">64</div></div>
+    <div class="score-row"><div class="lbl">Index hygiene / crawl</div><div class="bar"><i style="width:35%;background:var(--crit)"></i></div><div class="val">35</div></div>
+    <div class="score-row"><div class="lbl">Media &amp; images</div><div class="bar"><i style="width:40%;background:var(--crit)"></i></div><div class="val">40</div></div>
+    <div class="score-row"><div class="lbl">Design / enterprise polish</div><div class="bar"><i style="width:58%;background:var(--med)"></i></div><div class="val">58</div></div>
+    <div class="score-row"><div class="lbl">E-E-A-T &amp; trust signals</div><div class="bar"><i style="width:55%;background:var(--med)"></i></div><div class="val">55</div></div>
+    <div class="score-row"><div class="lbl">Informational content / blog</div><div class="bar"><i style="width:8%;background:var(--crit)"></i></div><div class="val">8</div></div>
+    <div class="score-row"><div class="lbl">Structured data</div><div class="bar"><i style="width:72%;background:var(--ok)"></i></div><div class="val">72</div></div>
+    <div class="score-row"><div class="lbl">Performance signals</div><div class="bar"><i style="width:52%;background:var(--med)"></i></div><div class="val">52</div></div>
+  </div>
+
+  <h3 class="sub2">Top 5 issues to fix first</h3>
+  <table>
+    <tr><th style="width:8mm">#</th><th>Issue</th><th style="width:24mm">Impact</th><th style="width:20mm">Effort</th></tr>
+    <tr><td class="num">1</td><td><b>~45 theme-demo &amp; template URLs are indexable and in the sitemap</b> (headers, footers, mega-menus, fake "IT projects").</td><td><span class="pill p-crit">Critical</span></td><td>Low</td></tr>
+    <tr><td class="num">2</td><td><b>No real <span class="mono">/services/</span> hub page</b> — the nav link redirects to a menu template.</td><td><span class="pill p-crit">Critical</span></td><td>Medium</td></tr>
+    <tr><td class="num">3</td><td><b>Media layer is 35 MB</b>; a 1.9 MB animated GIF is the logo &amp; social image; 604 legacy-format files.</td><td><span class="pill p-high">High</span></td><td>Medium</td></tr>
+    <tr><td class="num">4</td><td><b>Zero blog / informational content</b> — no way to capture top-of-funnel search demand.</td><td><span class="pill p-high">High</span></td><td>High</td></tr>
+    <tr><td class="num">5</td><td><b>6 category &amp; About pages are thin</b> (100–142 words) and read like a template.</td><td><span class="pill p-high">High</span></td><td>Medium</td></tr>
+  </table>
+
+  <div class="callout good"><b>What's already good:</b> unique keyword-aware titles &amp; descriptions on all service pages; valid Organization / ProfessionalService / Breadcrumb schema; HTTPS + HSTS + security headers; Brotli + LiteSpeed cache; correct canonicals; clean 404s; no mixed content; a contact form and CTA on every service page.</div>
+
+  <div class="foot"><span>Selkey Cyber Security — Enterprise SEO &amp; Content Audit</span><span>01</span></div>
+</section>
+
+<!-- ===================== TECHNICAL SEO ===================== -->
+<section class="page">
+  <div class="eyebrow">02 · Technical foundation</div>
+  <h2 class="sec"><span class="n">§2</span>Technical SEO &amp; crawl hygiene</h2>
+
+  <div class="grid2">
+    <div class="card tint">
+      <h4 style="margin-top:0">Passing checks</h4>
+      <table style="margin:0">
+        <tr><td>HTTPS + HSTS (1&nbsp;yr)</td><td><span class="pill p-ok">Pass</span></td></tr>
+        <tr><td>Canonical tags</td><td><span class="pill p-ok">Pass</span></td></tr>
+        <tr><td>robots.txt + sitemap ref</td><td><span class="pill p-ok">Pass</span></td></tr>
+        <tr><td>http/www → https 301</td><td><span class="pill p-ok">Pass</span></td></tr>
+        <tr><td>Brotli compression</td><td><span class="pill p-ok">Pass</span></td></tr>
+        <tr><td>LiteSpeed full-page cache</td><td><span class="pill p-ok">Pass</span></td></tr>
+        <tr><td>Custom 404 (returns 404)</td><td><span class="pill p-ok">Pass</span></td></tr>
+        <tr><td>Security headers (XFO, XCTO)</td><td><span class="pill p-ok">Pass</span></td></tr>
+        <tr><td>No mixed content</td><td><span class="pill p-ok">Pass</span></td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h4 style="margin-top:0">Needs attention</h4>
+      <table style="margin:0">
+        <tr><td>Index bloat (~45 junk URLs)</td><td><span class="pill p-crit">Critical</span></td></tr>
+        <tr><td>Nav "Services" → template</td><td><span class="pill p-crit">Critical</span></td></tr>
+        <tr><td>Internal links via 301 hops</td><td><span class="pill p-med">Medium</span></td></tr>
+        <tr><td><span class="mono">og:locale</span>/<span class="mono">lang</span> = en_US (serves IN)</td><td><span class="pill p-med">Medium</span></td></tr>
+        <tr><td>PHP version exposed in header</td><td><span class="pill p-med">Medium</span></td></tr>
+        <tr><td>Double redirect hop (http/www)</td><td><span class="pill p-info">Low</span></td></tr>
+        <tr><td>No GA4 / Search Console tag*</td><td><span class="pill p-med">Medium</span></td></tr>
+      </table>
+      <small>*Google Site Kit plugin is present but no GA4 measurement ID or verification tag was found in the rendered homepage — confirm analytics is actually firing.</small>
+    </div>
+  </div>
+
+  <h3 class="sub2">Index bloat — the single biggest technical problem</h3>
+  <p>Of <b>87 URLs</b> in the XML sitemap, only ~9 marketing pages and 43 service pages should be indexed. The rest are theme internals that all return <span class="mono">200</span> with <span class="mono">index,follow</span>, no H1 and no meta description:</p>
+  <table>
+    <tr><th>URL pattern</th><th class="num" style="width:16mm">Count</th><th>Example</th><th style="width:22mm">Action</th></tr>
+    <tr><td>Header / footer templates</td><td class="num">10</td><td class="mono">/header-footer/footer-four/</td><td>noindex + drop</td></tr>
+    <tr><td>Theme demo "projects"</td><td class="num">~17</td><td class="mono">/project/mobile-app-design/</td><td>Delete</td></tr>
+    <tr><td>Demo project categories</td><td class="num">5</td><td class="mono">/project-category/marketing/</td><td>noindex</td></tr>
+    <tr><td>Mega-menu templates</td><td class="num">3</td><td class="mono">/th-mega-menu/services/</td><td>noindex + drop</td></tr>
+    <tr><td>ElementsKit widget content</td><td class="num">4</td><td class="mono">/elementskit-content/…widget…/</td><td>noindex + drop</td></tr>
+  </table>
+  <div class="callout">One demo page is a literal duplicate: <span class="mono">/project/…public-sector-organizations-copy/</span>. Google's site-quality systems judge a domain holistically — when ~half the indexable pages are empty templates titled "Footer Four", it suppresses the pages that matter and wastes crawl budget. A ready-made <span class="mono">mu-plugin</span> that fixes this automatically ships in the accompanying <span class="mono">seo-fixes/</span> folder.</div>
+
+  <div class="foot"><span>Selkey Cyber Security — Enterprise SEO &amp; Content Audit</span><span>02</span></div>
+</section>
+
+<!-- ===================== CONTENT / SERVICE PAGES ===================== -->
+<section class="page">
+  <div class="eyebrow">03 · Content quality</div>
+  <h2 class="sec"><span class="n">§3</span>Service-page content audit</h2>
+  <p class="lead">All 43 service pages were fully crawled and their main content (excluding nav/footer) measured. The good news: they are genuinely unique — only 4 short sentences repeat as boilerplate across pages. The gap is a cluster of thin parent/category pages.</p>
+
+  <div class="grid3" style="margin-bottom:4mm">
+    <div class="kpi ok"><b>36</b><small>Pages ≥ 350 words (adequate–strong)</small></div>
+    <div class="kpi high"><b>6</b><small>Category pages that are thin (≤ 142 words)</small></div>
+    <div class="kpi ok"><b>4.8★</b><small>Cited rating — but see trust conflict, §6</small></div>
+  </div>
+
+  <h3 class="sub2">Thinnest pages — rewrite priority</h3>
+  <table>
+    <tr><th>Service / category page</th><th class="num" style="width:20mm">Body words</th><th style="width:22mm">Status</th><th>Note</th></tr>
+    <tr><td>Security Assessment Services &amp; OT <span class="tag">typo in slug</span></td><td class="num">100</td><td><span class="pill p-crit">Thin</span></td><td rowspan="6" style="vertical-align:middle">These six are the <b>parent pages linked from the homepage</b> — the first thing a buyer clicks. They're ~2 sentences + a service list. Expand each to 500–700 words: what the family covers, who it's for, methodology, outcomes, links to child services.</td></tr>
+    <tr><td>Compliance</td><td class="num">102</td><td><span class="pill p-crit">Thin</span></td></tr>
+    <tr><td>Managed Cyber Security Services</td><td class="num">107</td><td><span class="pill p-crit">Thin</span></td></tr>
+    <tr><td>Specialized Services</td><td class="num">107</td><td><span class="pill p-crit">Thin</span></td></tr>
+    <tr><td>Digital Forensic &amp; Incident Response</td><td class="num">117</td><td><span class="pill p-crit">Thin</span></td></tr>
+    <tr><td>Vulnerability Assessment &amp; Pen Testing (parent)</td><td class="num">142</td><td><span class="pill p-crit">Thin</span></td></tr>
+    <tr><td>Disk Forensic &amp; Imaging</td><td class="num">325</td><td><span class="pill p-med">Below&nbsp;par</span></td><td>Bring to ≥400 words; add process + deliverables.</td></tr>
+    <tr><td>OT / ICS Cyber Security Assessment</td><td class="num">329</td><td><span class="pill p-med">Below&nbsp;par</span></td><td>21 images but light text — rebalance.</td></tr>
+  </table>
+
+  <h3 class="sub2">Strongest pages (keep as the quality bar)</h3>
+  <p style="margin-bottom:2mm">ISO 27001 (1,183 words), Thick-Client VAPT (1,111), GDPR (1,084), DPDPA (1,034), API VAPT (952), Active Directory (922). These have proper <span class="mono">H1→H2→H3</span> structure, methodology, test cases, benefits and FAQs — this is the template every other service page should match.</p>
+
+  <div class="callout"><b>Content issues that repeat across pages:</b>
+  <ul class="tight" style="margin-bottom:0">
+    <li><b>Duplicate H2s</b> — e.g. "Benefits of Web Application Penetration Testing" appears twice on the same page (Elementor block duplicated).</li>
+    <li><b>Grammar/typos baked into indexed titles &amp; slugs</b> — "Assesment", "readness", "SOC as a Services", "Code IOT", "Honest Ethical Hacker".</li>
+    <li><b>Trust-number conflict</b> — "4.8★ by 144 clients" (meta + schema) vs "765+ Happy Clients" (homepage counter).</li>
+    <li><b>Leftover IT-template copy on the homepage</b> — "We Provide the best Information Technology Solutions service", "How To Work It!", and the testimonial heading <b>"From Encryption to Freedom" repeated 7×</b>.</li>
+  </ul></div>
+
+  <div class="foot"><span>Selkey Cyber Security — Enterprise SEO &amp; Content Audit</span><span>03</span></div>
+</section>
+
+<!-- ===================== IMAGE / MEDIA AUDIT ===================== -->
+<section class="page">
+  <div class="eyebrow">04 · Media</div>
+  <h2 class="sec"><span class="n">§4</span>Image &amp; media audit — what to change</h2>
+  <p class="lead">The media layer is the site's heaviest performance and polish liability. Every unique uploaded image (631 files) was probed for real byte-size and format.</p>
+
+  <div class="grid3" style="margin-bottom:4mm">
+    <div class="kpi crit"><b>35&nbsp;MB</b><small>Total unique image payload</small></div>
+    <div class="kpi high"><b>604</b><small>Legacy JPG/PNG/GIF (33 MB) — not next-gen</small></div>
+    <div class="kpi high"><b>41</b><small>Images over 200 KB each</small></div>
+  </div>
+
+  <h3 class="sub2">Priority replacements (largest / most damaging)</h3>
+  <table>
+    <tr><th>File</th><th class="num" style="width:16mm">Size</th><th style="width:16mm">Type</th><th>Why it must change</th></tr>
+    <tr><td class="mono">Selkey-Logo-White-GIF-1.gif</td><td class="num">1.9&nbsp;MB</td><td>GIF</td><td><span class="pill p-crit">Critical</span> Used as logo <b>and</b> og:image. Animated GIFs break LinkedIn/WhatsApp/FB previews. Replace with SVG logo + a static 1200×630 social image.</td></tr>
+    <tr><td class="mono">About-Us-1700-x-1120.jpg</td><td class="num">602&nbsp;KB</td><td>JPG</td><td>Hero image far larger than needed. Resize to display size, convert to WebP (&lt;100 KB).</td></tr>
+    <tr><td class="mono">76.jpg · 279.jpg · 45-1.jpg</td><td class="num">~590&nbsp;KB</td><td>JPG</td><td>Content/section images at 500–600 KB each. Compress + WebP.</td></tr>
+    <tr><td class="mono">circle_engine_2.webp</td><td class="num">458&nbsp;KB</td><td>WebP</td><td>Even the WebP decorative assets are oversized — re-export smaller.</td></tr>
+    <tr><td class="mono">2.jpg · 155.jpg · 158.jpg · 140-1.jpg</td><td class="num">370–385&nbsp;KB</td><td>JPG</td><td>Repeated across service pages; compress in bulk.</td></tr>
+  </table>
+
+  <h3 class="sub2">Systemic media actions</h3>
+  <ul class="tight">
+    <li><b>Missing alt text:</b> on the homepage alone, <b>97 of 100 images</b> have empty/absent <span class="mono">alt</span>. This is both an accessibility failure and lost image-search traffic. Do an alt pass across all pages (decorative shapes may keep empty alt).</li>
+    <li><b>Convert to next-gen formats:</b> 604 files (33 MB) are JPG/PNG/GIF. Enable WebP/AVIF delivery — LiteSpeed Cache has built-in image optimisation + WebP; turn it on and run "Optimize" on the whole library. Expect a 60–80% payload cut.</li>
+    <li><b>Resize to display dimensions:</b> several images are served far larger than their rendered size (e.g. a 1700×1120 hero). Serve responsive sizes.</li>
+    <li><b>Lazy-load below-the-fold</b> images and the decorative "engine/shape" assets.</li>
+    <li><b>Logo as SVG:</b> a security brand's logo should be a crisp scalable SVG, not a 1.9 MB raster GIF.</li>
+  </ul>
+
+  <div class="callout good"><b>Quick win:</b> LiteSpeed Cache → Image Optimization → enable "Auto Request Cron", "Optimize Original Images", "Create WebP Versions" → then <i>Send Optimization Request</i>. This single toggle addresses most of the 33 MB legacy payload with no manual re-uploading.</div>
+
+  <div class="foot"><span>Selkey Cyber Security — Enterprise SEO &amp; Content Audit</span><span>04</span></div>
+</section>
+
+<!-- ===================== DESIGN / ENTERPRISE ===================== -->
+<section class="page">
+  <div class="eyebrow">05 · Design &amp; positioning</div>
+  <h2 class="sec"><span class="n">§5</span>Enterprise-grade appearance</h2>
+  <p class="lead">Benchmarked against how buyers expect a serious B2B cybersecurity vendor's site to look and read. The bones are fine; the credibility gaps come from a generic IT theme showing through and weak proof.</p>
+
+  <h3 class="sub2">Where it reads as "template", not "enterprise"</h3>
+  <div class="finding high"><h4>Generic IT-agency theme is visible <span class="tag">TechCo theme</span></h4><div class="why">The site runs a stock ThemeForest "IT solutions" theme. Its demo artefacts survive in production: fake portfolio "projects" (Mobile App Design, Dashboard Design, "Driving Digital Transformation…"), IT-agency headings, and stock imagery. Enterprise buyers recognise these instantly.</div><div class="fix"><b>Fix:</b> delete all demo projects; replace IT-theme copy with cybersecurity-specific messaging; swap stock graphics for real SOC / team / certificate imagery.</div></div>
+
+  <div class="finding high"><h4>Thin, proof-light About page</h4><div class="why">~409 words. No founding-story specifics, no named leadership, no certifications listed (despite service pages citing OSCP/CEH/CPENT), no client logos, no "since 2022". This is the page enterprise procurement checks first.</div><div class="fix"><b>Fix:</b> add leadership bios + photos, certifications &amp; partner badges, founding year, headline stats (clients, engagements, industries), and 2–3 client logos.</div></div>
+
+  <div class="finding med"><h4>Repetitive, low-credibility testimonials</h4><div class="why">Seven testimonials all carry the identical heading "From Encryption to Freedom". Repetition reads as filler, not social proof.</div><div class="fix"><b>Fix:</b> use a unique one-line result as each heading (e.g. "Cleared our SEBI CSCRF audit first time"), name + role + company, and a logo where permitted.</div></div>
+
+  <div class="finding med"><h4>No case studies / proof of outcomes</h4><div class="why">The <span class="mono">/project/</span> section holds theme demos, not real engagements. Enterprise buyers look for anonymised case studies (problem → approach → outcome).</div><div class="fix"><b>Fix:</b> publish 3–5 real (anonymised) case studies with measurable results; retire the demo projects.</div></div>
+
+  <div class="finding med"><h4>Mobile experience unverified &amp; heavy</h4><div class="why">The homepage ships 42 external scripts, 33 stylesheets and a 35 MB media library — a real INP/LCP risk on mobile, where most Indian B2B research traffic lands. Viewport, favicon and apple-touch-icon are correctly present.</div><div class="fix"><b>Fix:</b> reduce script/style count (drop unused Elementor/ElementsKit modules), critical-CSS, and re-test Core Web Vitals on mobile in Search Console.</div></div>
+
+  <h3 class="sub2">Enterprise-readiness checklist</h3>
+  <div class="two-col" style="font-size:9pt">
+    <div>✅ HTTPS, HSTS, security headers<br>
+    ✅ Consistent NAP + business schema<br>
+    ✅ Contact form on every service page<br>
+    ✅ Clear service taxonomy (6 families)<br>
+    ✅ Social profiles linked (LI, X, FB, IG)<br>
+    ⚠️ Named leadership &amp; team bios<br>
+    ⚠️ Certifications / partner badges shown<br>
+    ⚠️ Real case studies / client logos<br>
+    ❌ Blog / insights / thought leadership<br>
+    ❌ Trust numbers consistent &amp; verifiable<br>
+    ❌ Demo/template content removed<br>
+    ❌ Optimised, next-gen media</div>
+  </div>
+
+  <div class="foot"><span>Selkey Cyber Security — Enterprise SEO &amp; Content Audit</span><span>05</span></div>
+</section>
+
+<!-- ===================== SCHEMA + EEAT + BLOG ===================== -->
+<section class="page">
+  <div class="eyebrow">06 · Structured data, trust &amp; content strategy</div>
+  <h2 class="sec"><span class="n">§6</span>Schema, E-E-A-T &amp; the missing blog</h2>
+
+  <h3 class="sub2">Structured data</h3>
+  <p>Valid <span class="mono">Organization</span>, <span class="mono">WebSite</span>, <span class="mono">BreadcrumbList</span> and <span class="mono">ProfessionalService</span> JSON-LD are present, with full NAP and social <span class="mono">sameAs</span>. Two issues:</p>
+  <div class="finding high"><h4>Self-serving <span class="mono">aggregateRating</span> (4.8★ / 144)</h4><div class="why">Google's review-snippet policy disallows a business marking up its own aggregate rating unless those reviews are genuinely collected and shown on that page. Best case it's ignored; worst case it's a manual-action risk. It also conflicts with the "765+ clients" figure elsewhere.</div><div class="fix"><b>Fix:</b> either display the real reviews on-page, or remove <span class="mono">aggregateRating</span> from the schema. Unify the client number sitewide.</div></div>
+  <div class="finding med"><h4>Missing local-SEO fields</h4><div class="why">No <span class="mono">geo</span>, <span class="mono">openingHours</span> or <span class="mono">priceRange</span>. For "cyber security company in Ahmedabad", a complete profile + Google Business Profile is a quick ranking win.</div><div class="fix"><b>Fix:</b> add the fields (corrected JSON-LD is in the fix pack) and create/verify a Google Business Profile matching the NAP exactly.</div></div>
+
+  <h3 class="sub2">E-E-A-T (Experience · Expertise · Authority · Trust)</h3>
+  <table>
+    <tr><th>Signal</th><th style="width:26mm">Status</th><th>Recommendation</th></tr>
+    <tr><td>Named authors / experts</td><td><span class="pill p-crit">Missing</span></td><td>Author bios on About + future blog posts; show real people.</td></tr>
+    <tr><td>Certifications visible</td><td><span class="pill p-high">Weak</span></td><td>Cited in body text only — add a badge strip (OSCP, CEH, ISO 27001 LA, CPENT).</td></tr>
+    <tr><td>Case studies / outcomes</td><td><span class="pill p-crit">Missing</span></td><td>Publish anonymised results; retire demo projects.</td></tr>
+    <tr><td>Third-party proof</td><td><span class="pill p-high">Weak</span></td><td>Client logos, Google reviews embed, memberships.</td></tr>
+    <tr><td>Contactability / NAP</td><td><span class="pill p-ok">Good</span></td><td>Phone, email, address consistent in schema &amp; footer.</td></tr>
+  </table>
+
+  <h3 class="sub2">The biggest growth gap: no informational content</h3>
+  <p>There is <b>no blog, insights or resources section anywhere</b> — no post sitemap exists. Cybersecurity buyers search informationally long before they buy. With 43 commercial pages and zero supporting content, the site can only compete on direct commercial queries against far stronger domains.</p>
+  <div class="card tint">
+    <b>Recommended content clusters</b> (India-focused, lower competition, each interlinked to its matching service page):
+    <div class="grid2" style="margin-top:2mm">
+      <ul class="tight" style="margin:0">
+        <li>SEBI CSCRF — applicability, deadlines, checklist</li>
+        <li>DPDPA — what companies must do, consent, breach rules</li>
+        <li>RBI cyber-security framework for banks &amp; NBFCs</li>
+      </ul>
+      <ul class="tight" style="margin:0">
+        <li>"What is VAPT" — scope, process, pricing factors</li>
+        <li>ISO 27001:2022 implementation guide</li>
+        <li>Incident-response readiness / ransomware playbooks</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="foot"><span>Selkey Cyber Security — Enterprise SEO &amp; Content Audit</span><span>06</span></div>
+</section>
+
+<!-- ===================== ROADMAP ===================== -->
+<section class="page">
+  <div class="eyebrow">07 · Action plan</div>
+  <h2 class="sec"><span class="n">§7</span>Prioritised remediation roadmap</h2>
+  <p class="lead">Sequenced by impact-to-effort. A ready-to-apply fix pack (mu-plugin, .htaccess redirects, copy, schema, apply guide) accompanies this report in the repository's <span class="mono">seo-fixes/</span> folder.</p>
+
+  <h3 class="sub2">Phase 1 — Foundation (Week 1) <span class="pill p-crit" style="vertical-align:middle">Critical</span></h3>
+  <table>
+    <tr><th style="width:8mm">#</th><th>Action</th><th style="width:30mm">Deliverable</th></tr>
+    <tr><td class="num">1</td><td>Noindex + drop theme junk from sitemap (mu-plugin / Yoast content-type settings)</td><td>~45 URLs de-indexed</td></tr>
+    <tr><td class="num">2</td><td>Delete all demo "projects" incl. the <span class="mono">-copy</span> duplicate</td><td>Clean portfolio space</td></tr>
+    <tr><td class="num">3</td><td>Build a real <span class="mono">/services/</span> hub page; repoint nav; fix trailing-slash links</td><td>Pillar page live</td></tr>
+    <tr><td class="num">4</td><td>Replace 1.9 MB GIF: SVG logo + static 1200×630 og:image</td><td>Clean social previews</td></tr>
+    <tr><td class="num">5</td><td>Fix misspelled slugs/titles (Assesment, readness, SOC-as-a-Services) + 301s</td><td>Credible URLs</td></tr>
+  </table>
+
+  <h3 class="sub2">Phase 2 — Content &amp; media quality (Weeks 2–4) <span class="pill p-high" style="vertical-align:middle">High</span></h3>
+  <table>
+    <tr><th style="width:8mm">#</th><th>Action</th><th style="width:30mm">Deliverable</th></tr>
+    <tr><td class="num">6</td><td>LiteSpeed image optimisation on → WebP + compress 604 legacy files</td><td>~60–80% payload cut</td></tr>
+    <tr><td class="num">7</td><td>Alt-text pass across all pages (homepage first)</td><td>Accessibility + image SEO</td></tr>
+    <tr><td class="num">8</td><td>Expand the 6 thin parent pages to 500–700 words each</td><td>Stronger hubs</td></tr>
+    <tr><td class="num">9</td><td>Rebuild About: leadership, certs, stats, client logos</td><td>Enterprise trust</td></tr>
+    <tr><td class="num">10</td><td>Unify trust numbers; fix/remove <span class="mono">aggregateRating</span>; rewrite testimonials</td><td>Consistent proof</td></tr>
+    <tr><td class="num">11</td><td>Add missing meta descriptions; retune long/short titles</td><td>Better SERP CTR</td></tr>
+  </table>
+
+  <h3 class="sub2">Phase 3 — Growth (Month 2+) <span class="pill p-med" style="vertical-align:middle">Strategic</span></h3>
+  <table>
+    <tr><th style="width:8mm">#</th><th>Action</th><th style="width:30mm">Deliverable</th></tr>
+    <tr><td class="num">12</td><td>Launch blog with SEBI / DPDPA / RBI / VAPT clusters, interlinked to services</td><td>Top-of-funnel traffic</td></tr>
+    <tr><td class="num">13</td><td>Publish 3–5 anonymised case studies</td><td>Bottom-funnel proof</td></tr>
+    <tr><td class="num">14</td><td>Move training courses to a <span class="mono">/training/</span> silo with Course schema</td><td>Cleaner taxonomy</td></tr>
+    <tr><td class="num">15</td><td>Google Business Profile + review collection (Ahmedabad)</td><td>Local pack + verifiable ★</td></tr>
+    <tr><td class="num">16</td><td>Performance pass: cut scripts/styles, critical CSS, measure CWV</td><td>Core Web Vitals green</td></tr>
+  </table>
+
+  <div class="callout good" style="margin-top:5mm"><b>Projected outcome:</b> completing Phases 1–2 alone should lift the overall grade from <b>C+ (62)</b> toward <b>B+ (82)</b> — the index cleanup, media optimisation and hub/About improvements address 8 of the 10 lowest-scoring categories. Phase 3 is what moves the site from "credible" to "category-leading" in Indian cybersecurity search.</div>
+
+  <div class="foot"><span>Selkey Cyber Security — Enterprise SEO &amp; Content Audit · Prepared 3 July 2026</span><span>07</span></div>
+</section>
+
+</body>
+</html>
