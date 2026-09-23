@@ -43,13 +43,17 @@ echo === 4. Setting network access model to Classic (not Guest-only) ===
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Lsa" /v ForceGuest /t REG_DWORD /d 0 /f
 
 echo.
-echo === 5. Creating the local scan credential account and granting admin rights ===
+echo === 5. Turning off Windows Firewall for all profiles ===
+netsh advfirewall set allprofiles state off
+
+echo.
+echo === 6. Creating the local scan credential account and granting admin rights ===
 :: Creates user "admin1" and adds it to the local Administrators group.
 net user admin1 Anjali@123 /add
 net localgroup Administrators admin1 /add
 
 echo.
-echo Done. The account "admin1" is now a member of the local
-echo Administrators group. Use it as the Nessus scan credential, then
-echo re-run the scan.
+echo Done. Windows Firewall is disabled on all profiles and the account
+echo "admin1" is now a member of the local Administrators group. Use it
+echo as the Nessus scan credential, then re-run the scan.
 pause
