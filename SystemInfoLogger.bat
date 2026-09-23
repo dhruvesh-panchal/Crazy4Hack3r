@@ -28,25 +28,28 @@ if not exist "%OUTFILE%" (
 set "HOSTNAME=%COMPUTERNAME%"
 
 :: --- Collect logged in user ---
-for /f "tokens=*" %%A in ('whoami') do set "LOGGEDUSER=%%A"
+for /f "usebackq delims=" %%A in (`whoami`) do set "LOGGEDUSER=%%A"
 
-:: --- Collect first IPv4 address ---
+:: --- Collect first active IPv4 address via PowerShell (locale independent) ---
 set "IPADDR="
-for /f "tokens=2 delims=:" %%A in ('ipconfig ^| findstr /R /C:"IPv4 Address"') do (
-    if not defined IPADDR (
-        set "IPADDR=%%A"
-        set "IPADDR=!IPADDR: =!"
-    )
-)
+for /f "usebackq delims=" %%A in (`powershell -NoProfile -ExecutionPolicy Bypass -Command "try { (Get-NetIPAddress -AddressFamily IPv4 -ErrorAction Stop ^| Where-Object { $_.IPAddress -notlike '169.254.*' -and $_.InterfaceAlias -notmatch 'Loopback' } ^| Select-Object -First 1 -ExpandProperty IPAddress) } catch { 'PS_ERROR: ' + $_.Exception.Message }"`) do set "IPADDR=%%A"
 
-:: --- Collect first physical (MAC) address ---
+:: --- Collect first active MAC address via PowerShell (locale independent) ---
 set "MACADDR="
-for /f "tokens=1,* delims=:" %%A in ('getmac /fo list /v ^| findstr /C:"Physical Address"') do (
-    if not defined MACADDR (
-        set "MACADDR=%%B"
-        set "MACADDR=!MACADDR: =!"
-    )
-)
+for /f "usebackq delims=" %%A in (`powershell -NoProfile -ExecutionPolicy Bypass -Command "try { (Get-NetAdapter -ErrorAction Stop ^| Where-Object { $_.Status -eq 'Up' } ^| Select-Object -First 1 -ExpandProperty MacAddress) } catch { 'PS_ERROR: ' + $_.Exception.Message }"`) do set "MACADDR=%%A"
+
+if not defined IPADDR set "IPADDR=UNKNOWN"
+if not defined MACADDR set "MACADDR=UNKNOWN"
+
+:: --- Debug: show exactly what was captured, including any PowerShell error text ---
+echo ---------------------------------------------
+echo Captured values:
+echo   Hostname   = %HOSTNAME%
+echo   User       = %LOGGEDUSER%
+echo   IPAddress  = %IPADDR%
+echo   MACAddress = %MACADDR%
+echo ---------------------------------------------
+echo.
 
 :: --- Check whether this exact entry already exists ---
 set "FOUND=0"
@@ -61,10 +64,5 @@ if "%FOUND%"=="1" (
     echo New entry added to %OUTFILE%.
 )
 
-echo.
-echo Hostname........ %HOSTNAME%
-echo Logged In User.. %LOGGEDUSER%
-echo IP Address...... %IPADDR%
-echo MAC Address..... %MACADDR%
 echo.
 pause
