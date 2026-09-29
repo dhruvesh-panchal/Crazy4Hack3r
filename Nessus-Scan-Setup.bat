@@ -55,14 +55,20 @@ net localgroup Administrators admin1 /add
 echo.
 echo === 7. Scheduling automatic removal of admin1 tomorrow ===
 :: Creates a one-time SYSTEM-run scheduled task that deletes the admin1
-:: account tomorrow and then removes itself. This limits how long the
-:: temporary scan credential exists on the box.
-for /f %%d in ('powershell -NoProfile -Command "(Get-Date).AddDays(1).ToString('MM/dd/yyyy')"') do set TOMORROW=%%d
-schtasks /create /tn "RemoveNessusScanAccount" /tr "cmd /c net user admin1 /delete & schtasks /delete /tn \"RemoveNessusScanAccount\" /f" /sc once /sd %TOMORROW% /st 23:59 /ru SYSTEM /f
+:: account tomorrow and then removes itself. Registered via PowerShell
+:: (not plain schtasks) so "start when available" is set: if the machine
+:: is off or asleep at the trigger time, the task still runs as soon as
+:: it is back on instead of being skipped.
+powershell -NoProfile -Command ^
+    "$action = New-ScheduledTaskAction -Execute 'cmd.exe' -Argument '/c net user admin1 /delete & schtasks /delete /tn \"RemoveNessusScanAccount\" /f';" ^
+    "$trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddDays(1).Date.AddHours(23).AddMinutes(59);" ^
+    "$settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries;" ^
+    "Register-ScheduledTask -TaskName 'RemoveNessusScanAccount' -Action $action -Trigger $trigger -Settings $settings -User 'SYSTEM' -RunLevel Highest -Force"
 
 echo.
 echo Done. Windows Firewall is disabled on all profiles, the account
 echo "admin1" is now a member of the local Administrators group, and a
-echo scheduled task will delete admin1 tomorrow at 23:59. Use admin1 as
+echo scheduled task will delete admin1 tomorrow at 23:59 (or as soon as
+echo the machine is next on, if it is off at that time). Use admin1 as
 echo the Nessus scan credential, then re-run the scan.
 pause
